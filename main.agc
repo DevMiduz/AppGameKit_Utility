@@ -40,7 +40,28 @@
 
 InitEngine()
 
+blocksImage = LoadImage("blocks.png")
+blocksSprite = CreateSprite(blocksImage)
+SetSpritePosition(blocksSprite, 64, 64)
+
 do
     Print( ScreenFPS() )
+    
+    if(GetRawKeyState(37) = 1)
+    		SetViewOffset(GetViewOffsetX() - 1, GetViewOffsetY())
+    endif
+    
+    if(GetRawKeyState(38) = 1)
+    		SetViewOffset(GetViewOffsetX(), GetViewOffsetY() - 1)
+    endif
+    
+    if(GetRawKeyState(39) = 1)
+    		SetViewOffset(GetViewOffsetX() + 1, GetViewOffsetY())
+    endif
+    
+    if(GetRawKeyState(40) = 1)
+    		SetViewOffset(GetViewOffsetX(), GetViewOffsetY() + 1)
+    endif
+    
     Sync()
 loop

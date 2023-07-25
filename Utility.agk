@@ -54,13 +54,15 @@ FILE_1=includes.agc;-1
 FILE_2=main.agc;-1
 FILE_3=vector.agc;-1
 FILE_4=camera.agc;-1
+FILE_5=helpers.agc;-1
 
 [files]
 FILE_NAME_0=0;engine.agc;0;0
 FILE_NAME_1=0;includes.agc;15;1
-FILE_NAME_2=0;main.agc;28;2
+FILE_NAME_2=0;main.agc;38;2
 FILE_NAME_3=0;vector.agc;27;3
-FILE_NAME_4=0;camera.agc;0;4
+FILE_NAME_4=0;camera.agc;30;4
+FILE_NAME_5=1;helpers.agc;0;5
 
 [watchvariables]
 

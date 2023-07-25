@@ -12,5 +12,6 @@
 */
 
 #include "engine.agc"
+#include "helpers.agc"
 #include "vector.agc"
 #include "camera.agc"
