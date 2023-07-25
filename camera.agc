@@ -5,12 +5,25 @@
  */
 
 /*
-*	includes.agc
+*	camera.agc
 * 	CREATED BY: DEV MIDUZ
 *	https://github.com/DevMiduz/AppGameKit_Utility
 *	devmiduz@gmail.com
 */
 
-#include "engine.agc"
-#include "vector.agc"
-#include "camera.agc"
+/*
+
+	TYPES
+	
+*/
+
+type Camera
+	x as integer
+	y as integer
+endtype
+
+/*
+
+	FUNCTIONS
+	
+*/
