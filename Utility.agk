@@ -59,13 +59,13 @@ FILE_6=grid.agc;-1
 FILE_7=id_generator.agc;-1
 
 [files]
-FILE_NAME_0=0;camera.agc;68;0
-FILE_NAME_1=0;helpers.agc;70;1
-FILE_NAME_2=0;includes.agc;17;2
-FILE_NAME_3=0;main.agc;34;3
-FILE_NAME_4=1;vector.agc;38;4
-FILE_NAME_5=0;grid.agc;0;5
-FILE_NAME_6=0;id_generator.agc;0;6
+FILE_NAME_0=0;camera.agc;81;0
+FILE_NAME_1=0;helpers.agc;44;1
+FILE_NAME_2=0;includes.agc;18;2
+FILE_NAME_3=0;main.agc;10;3
+FILE_NAME_4=0;vector.agc;38;4
+FILE_NAME_5=1;grid.agc;90;5
+FILE_NAME_6=0;id_generator.agc;267;6
 
 [watchvariables]
 watch_variable=@Version;
