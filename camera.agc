@@ -27,9 +27,7 @@ type Camera
 	id as integer
 	x as integer
 	y as integer
-	movePerc as float
 	centered as integer
-	speed as float
 endtype
 
 /*
@@ -38,36 +36,35 @@ endtype
 	
 */
 
-// Move
+function Camera_Create(x as integer, y as integer, centered as integer)
+	camera as Camera
+	Camera_CreateRef(camera, x, y, centered)
+endfunction camera
+
+function Camera_CreateRef(camera ref as Camera, x as integer, y as integer, centered as integer)
+	camera.centered = centered
+	Camera_SetPosition(camera, x, y)
+endfunction
+
 function Camera_Move(camera ref as Camera, x as integer, y as integer)
 	camera.x = camera.x + x
 	camera.y = camera.y + y
-	
+	Camera_Update(camera)
+endfunction
+
+function Camera_SetPosition(camera ref as Camera, x as integer, y as integer)
+	camera.x = x
+	camera.y = y
+	Camera_Update(camera)
+endfunction
+
+function Camera_Update(camera ref as Camera)
 	if(camera.centered = 1)
 		setViewOffset( camera.x - (GetVirtualWidth() / 2), camera.y - (GetVirtualHeight() / 2) )
 	else
 		SetViewOffset(camera.x, camera.y)
 	endif
 endfunction
-
-// Speed
-
-// Set
-function Camera_SetPosition(camera ref as Camera, x as integer, y as integer)
-	camera.x = x
-	camera.y = y
-endfunction
-
-function Camera_Lerp(src as float, dest as float, decimal as float)
-	result as float
-	
-	if(decimal < 1.0)
-    		result = src * ( 1 - decimal ) + dest * decimal
-    	else
-    		result = dest
-    	endif
-    	
-EndFunction result
 
 /*
 
@@ -80,9 +77,7 @@ function Test_Camera_Utility()
 	SetSpritePositionByOffset(blocksSprite, 0, 0)
 
 	camera as Camera
-	camera.centered = 1
-	camera.speed = 0.01
-	Camera_Move(camera, 0, 0)
+	camera = Camera_Create(0, 0, 1)
 	
 	do
 	    Print( ScreenFPS() )
