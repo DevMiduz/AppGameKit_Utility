@@ -21,10 +21,6 @@ type Camera
 	id as integer
 	x as integer
 	y as integer
-	srcX as integer
-	srcY as integer
-	destX as integer
-	destY as integer
 	movePerc as float
 	centered as integer
 	speed as float
@@ -36,20 +32,16 @@ endtype
 	
 */
 
-function Camera_Update(camera ref as Camera)
-	camera.movePerc = camera.movePerc + camera.speed
-	camera.x = Camera_Lerp(camera.x, camera.destX, camera.movePerc)
-	camera.y = Camera_Lerp(camera.y, camera.destY, camera.movePerc)
-	SetViewOffset(camera.x, camera.y)
-endfunction
-
 // Move
 function Camera_Move(camera ref as Camera, x as integer, y as integer)
-	camera.srcX = camera.x
-	camera.srcY = camera.y
-	camera.destX = camera.x + x
-	camera.destY = camera.y + y
-	camera.movePerc = 0.1
+	camera.x = camera.x + x
+	camera.y = camera.y + y
+	
+	if(camera.centered = 1)
+		setViewOffset( camera.x - (GetVirtualWidth() / 2), camera.y - (GetVirtualHeight() / 2) )
+	else
+		SetViewOffset(camera.x, camera.y)
+	endif
 endfunction
 
 // Speed

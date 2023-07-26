@@ -42,10 +42,12 @@ InitEngine()
 
 blocksImage = LoadImage("blocks.png")
 blocksSprite = CreateSprite(blocksImage)
-SetSpritePosition(blocksSprite, 64, 64)
+SetSpritePositionByOffset(blocksSprite, 0, 0)
 
 camera as Camera
-camera.speed = 0.1
+camera.centered = 1
+camera.speed = 0.01
+Camera_Move(camera, 0, 0)
 
 do
     Print( ScreenFPS() )
@@ -65,8 +67,6 @@ do
     if(GetRawKeyState(40) = 1)
     		Camera_Move(camera, 0, 1)
     endif
-    
-    Camera_Update(camera)
     
     Sync()
 loop
