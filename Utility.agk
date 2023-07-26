@@ -49,20 +49,18 @@ dynamic_memory=0
 output_path=
 
 [projectfiles]
-FILE_0=engine.agc;-1
-FILE_1=includes.agc;-1
-FILE_2=main.agc;-1
-FILE_3=vector.agc;-1
-FILE_4=camera.agc;-1
-FILE_5=helpers.agc;-1
+FILE_0=camera.agc;-1
+FILE_1=engine.agc;-1
+FILE_2=helpers.agc;-1
+FILE_3=includes.agc;-1
+FILE_4=main.agc;-1
+FILE_5=vector.agc;-1
+FILE_6=grid.agc;-1
 
 [files]
-FILE_NAME_0=0;engine.agc;0;0
-FILE_NAME_1=0;includes.agc;14;1
-FILE_NAME_2=0;main.agc;40;2
-FILE_NAME_3=0;vector.agc;28;3
-FILE_NAME_4=1;camera.agc;46;4
-FILE_NAME_5=0;helpers.agc;36;5
+FILE_NAME_0=0;includes.agc;16;0
+FILE_NAME_1=0;vector.agc;39;1
+FILE_NAME_2=1;grid.agc;0;2
 
 [watchvariables]
 watch_variable=@Version;

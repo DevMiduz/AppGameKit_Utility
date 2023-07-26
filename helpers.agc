@@ -34,11 +34,6 @@
 	Next i#
 */
 
-Function Lerp(src as float, dest as float, decimal as float)
-	result as float
-    result = src * ( 1 - decimal ) + dest * decimal
-EndFunction result
-
 /*
 //https://forum.thegamecreators.com/thread/193427
 
@@ -74,3 +69,9 @@ do
  Sync(  )
 loop
 */
+
+Function Lerp(src as float, dest as float, decimal as float)
+	result as float
+    result = src * ( 1 - decimal ) + dest * decimal
+EndFunction result
+

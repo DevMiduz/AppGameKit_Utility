@@ -1,0 +1,3 @@
+- Each file will have it's own includes.
+- This will make it easier when transferring to other projects.
+- Added test functions to the files where applicable.

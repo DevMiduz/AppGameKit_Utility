@@ -13,6 +13,12 @@
 
 /*
 
+	INCLUDES
+
+*/
+
+/*
+
 	TYPES
 	
 */
@@ -48,10 +54,11 @@ endfunction
 
 // Set
 function Camera_SetPosition(camera ref as Camera, x as integer, y as integer)
-	
+	camera.x = x
+	camera.y = y
 endfunction
 
-Function Camera_Lerp(src as float, dest as float, decimal as float)
+function Camera_Lerp(src as float, dest as float, decimal as float)
 	result as float
 	
 	if(decimal < 1.0)
@@ -61,3 +68,41 @@ Function Camera_Lerp(src as float, dest as float, decimal as float)
     	endif
     	
 EndFunction result
+
+/*
+
+	TEST_FUNCTIONS
+	
+*/
+function Test_Camera_Utility()
+	blocksImage = LoadImage("blocks.png")
+	blocksSprite = CreateSprite(blocksImage)
+	SetSpritePositionByOffset(blocksSprite, 0, 0)
+
+	camera as Camera
+	camera.centered = 1
+	camera.speed = 0.01
+	Camera_Move(camera, 0, 0)
+	
+	do
+	    Print( ScreenFPS() )
+	    
+	    if(GetRawKeyState(37) = 1)
+	    		Camera_Move(camera, -1, 0)
+	    endif
+	    
+	    if(GetRawKeyState(38) = 1)
+	    		Camera_Move(camera, 0, -1)
+	    endif
+	    
+	    if(GetRawKeyState(39) = 1)
+	    		Camera_Move(camera, 1, 0)
+	    endif
+	    
+	    if(GetRawKeyState(40) = 1)
+	    		Camera_Move(camera, 0, 1)
+	    endif
+	    
+	    Sync()
+	loop
+endfunction
