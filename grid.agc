@@ -18,6 +18,7 @@
 */
 
 #include "vector.agc"
+#include "id_generator.agc"
 
 /*
 
@@ -69,84 +70,30 @@ endtype
 
 /*
 
-function initGrid(grid ref as Grid)
-	id as integer
-	
-	grid.tiles.length = grid.width
-	
-	for gx = 0 to grid.width
-		grid.tiles[gx].length = grid.height
-		for gy = 0 to grid.height
-			tile as Tile
-			
-			tile.id = id
-			tile.gx = gx
-			tile.gy = gy
-			tile.px = gx * grid.tileSize
-			tile.py = gy * grid.tileSize
-			tile.status = TILE_OPEN
-			tile.distance = -1
-			
-			tile.sprite = CreateSprite(blocksImage)
-			SetSpritePosition(tile.sprite, tile.px, tile.py)
-			SetSpriteAnimation(tile.sprite, 8, 8, 4)
-			PlaySprite(tile.sprite, 0)
-			
-			tile.distanceText = CreateText(str(tile.distance))
-			SetTextPosition(tile.distanceText, tile.px, tile.py)
-			
-			if(Random(0, 8) = 0) 
-				tile.status = TILE_IMPASSIBLE
-				PlaySprite(tile.sprite, 0, 0, 4, 4)
-			endif
-			
-			grid.tiles[gx, gy] = tile
-			inc id
-		next gy
-	next gx
-	
-endfunction
-
-*/
-
-
-/*
-
 	FUNCTIONS
 	
 */
 
-function Grid_Create(id as integer, tileSize as integer, center as Vector2D, gridData as GridData)
+function Grid_Create(tileSize as integer, center as Vector2D)
 	grid as Grid 
-	Grid_CreateRef(grid, id, tileSize, center, gridData)
+	Grid_CreateRef(grid, tileSize, center)
 endfunction grid
 
-
-function Grid_CreateRef(grid ref as Grid, id as integer, tileSize as integer, center as Vector2D, gridData as GridData)
-	grid.id = id
+function Grid_CreateRef(grid ref as Grid, tileSize as integer, center as Vector2D)
+	grid.id = IDGenerator_GenerateNewID(GLOBAL_ID_GENERATOR)
 	grid.tileSize = tileSize
 	grid.center = center
-	grid.gridData = gridData
-	
-	//use the grid expander to expand the grid
-	//the id system probably won't be viable with the GridExpander
-	//due to find relting upon sort.
-	//We would more than likely have to re-id the grid each time.
-	//x and y index will have to be used
-	//There again the id could be anything. It is only an idenfifier which could be used in a seperate array.
-	//The seperate array could also contain the indexes
-	
-	
-	//grid.tiles[0,0] = Tile_Create(0, Vector2D_CreateVector(0,0),)
+	grid.tiles[0,0] = Tile_Create(Vector2D_CreateVector(0,0))
 endfunction
 
-function Tile_Create(id as integer, gridPosition as Vector2D, tileData as TileData)
+function Tile_Create(gridPosition as Vector2D)
 	tile as Tile
-	Tile_CreateRef(tile, id, gridPosition, tileData)
+	Tile_CreateRef(tile, gridPosition)
 endfunction tile
 
-function Tile_CreateRef(tile ref as Tile, id as integer, gridPosition as Vector2D, tileData as TileData)
-	
+function Tile_CreateRef(tile ref as Tile, gridPosition as Vector2D)
+	tile.id = IDGenerator_GenerateNewID(GLOBAL_ID_GENERATOR)
+	tile.gridPosition = gridPosition
 endfunction
 
 /*
@@ -154,3 +101,16 @@ endfunction
 	TEST_FUNCTIONS
 	
 */
+
+function Grid_TestUtility()	
+	
+	do
+	    Print( ScreenFPS() )
+	    
+	    if(GetRawKeyPressed(32))
+	    		
+	    endif
+	    
+	    Sync()
+	loop
+endfunction

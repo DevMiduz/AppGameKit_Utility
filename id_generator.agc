@@ -13,6 +13,12 @@
 
 /*
 
+	INCLUDES
+	
+*/
+
+/*
+
 	CONSTANTS
 
 */
@@ -33,9 +39,11 @@
 
 /*
 
-	INCLUDES
-	
+	GLOBALS
+
 */
+
+global GLOBAL_ID_GENERATOR as IDGenerator
 
 /*
 
@@ -253,13 +261,11 @@ function IDGenerator_TestUtility()
 	blocksImage = LoadImage("blocks.png")
 	CreateSprite(1, blocksImage)
 	
-	idGenerator as IDGenerator
-	
 	do
 	    Print( ScreenFPS() )
 	    
 	    if(GetRawKeyPressed(32))
-	    		newId = IDGenerator_GenerateIDByType(idGenerator, CONST_ID_GENERATOR_SPRITE_TYPE)
+	    		newId = IDGenerator_GenerateIDByType(GLOBAL_ID_GENERATOR, CONST_ID_GENERATOR_SPRITE_TYPE)
 	    endif
 	    
 	    Sync()
