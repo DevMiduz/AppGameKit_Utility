@@ -46,6 +46,7 @@ InitEngine()
 
 */
 //Test_Camera_Utility()
+IDGenerator_TestUtility()
 
 do
     Print( ScreenFPS() )

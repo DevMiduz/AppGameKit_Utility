@@ -15,3 +15,5 @@
 #include "helpers.agc"
 #include "vector.agc"
 #include "camera.agc"
+#include "grid.agc"
+#include "id_generator.agc"
