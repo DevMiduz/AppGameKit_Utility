@@ -44,24 +44,29 @@ blocksImage = LoadImage("blocks.png")
 blocksSprite = CreateSprite(blocksImage)
 SetSpritePosition(blocksSprite, 64, 64)
 
+camera as Camera
+camera.speed = 0.1
+
 do
     Print( ScreenFPS() )
     
     if(GetRawKeyState(37) = 1)
-    		SetViewOffset(GetViewOffsetX() - 1, GetViewOffsetY())
+    		Camera_Move(camera, -1, 0)
     endif
     
     if(GetRawKeyState(38) = 1)
-    		SetViewOffset(GetViewOffsetX(), GetViewOffsetY() - 1)
+    		Camera_Move(camera, 0, -1)
     endif
     
     if(GetRawKeyState(39) = 1)
-    		SetViewOffset(GetViewOffsetX() + 1, GetViewOffsetY())
+    		Camera_Move(camera, 1, 0)
     endif
     
     if(GetRawKeyState(40) = 1)
-    		SetViewOffset(GetViewOffsetX(), GetViewOffsetY() + 1)
+    		Camera_Move(camera, 0, 1)
     endif
+    
+    Camera_Update(camera)
     
     Sync()
 loop

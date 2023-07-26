@@ -5,7 +5,7 @@
  */
 
 /*
-*	helper.agc
+*	helpers.agc
 * 	CREATED BY: DEV MIDUZ
 *	https://github.com/DevMiduz/AppGameKit_Utility
 *	devmiduz@gmail.com
@@ -34,9 +34,9 @@
 	Next i#
 */
 
-Function Lerp(p1 as float, p2 as float, i as float)
+Function Lerp(src as float, dest as float, decimal as float)
 	result as float
-    result = p1 * ( 1 - i ) + p2 * i
+    result = src * ( 1 - decimal ) + dest * decimal
 EndFunction result
 
 /*

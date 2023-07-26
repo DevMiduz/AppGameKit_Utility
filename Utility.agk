@@ -58,11 +58,12 @@ FILE_5=helpers.agc;-1
 
 [files]
 FILE_NAME_0=0;engine.agc;0;0
-FILE_NAME_1=0;includes.agc;15;1
-FILE_NAME_2=0;main.agc;38;2
-FILE_NAME_3=0;vector.agc;27;3
-FILE_NAME_4=0;camera.agc;30;4
-FILE_NAME_5=1;helpers.agc;0;5
+FILE_NAME_1=0;includes.agc;14;1
+FILE_NAME_2=0;main.agc;40;2
+FILE_NAME_3=0;vector.agc;28;3
+FILE_NAME_4=1;camera.agc;46;4
+FILE_NAME_5=0;helpers.agc;36;5
 
 [watchvariables]
+watch_variable=@Version;
 
