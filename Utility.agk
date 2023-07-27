@@ -58,16 +58,18 @@ FILE_5=includes.agc;-1
 FILE_6=main.agc;-1
 FILE_7=vector.agc;-1
 FILE_8=box.agc;-1
+FILE_9=grid_pathfinding.agc;-1
 
 [files]
 FILE_NAME_0=0;camera.agc;76;0
-FILE_NAME_1=0;grid.agc;304;1
+FILE_NAME_1=0;grid.agc;59;1
 FILE_NAME_2=0;helpers.agc;44;2
 FILE_NAME_3=0;id_generator.agc;267;3
 FILE_NAME_4=0;includes.agc;16;4
 FILE_NAME_5=0;main.agc;49;5
 FILE_NAME_6=0;vector.agc;23;6
 FILE_NAME_7=0;box.agc;37;7
+FILE_NAME_8=1;grid_pathfinding.agc;0;8
 
 [watchvariables]
 watch_variable=@Version;

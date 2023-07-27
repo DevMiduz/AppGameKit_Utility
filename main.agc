@@ -47,7 +47,8 @@ InitEngine()
 */
 //Test_Camera_Utility()
 //IDGenerator_TestUtility()
-Grid_TestUtility()
+//Grid_TestUtility()
+GridPathfinding_TestUtility()
 
 do
     Print( ScreenFPS() )

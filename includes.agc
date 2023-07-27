@@ -17,4 +17,5 @@
 #include "box.agc"
 #include "camera.agc"
 #include "grid.agc"
+#include "grid_pathfinding.agc"
 #include "id_generator.agc"
