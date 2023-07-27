@@ -133,7 +133,18 @@ function Grid_GetTileWorldPosition(grid ref as Grid, x as integer, y as integer)
 	position = Vector2D_CreateVector(grid.center.x + (x * grid.tileSize), grid.center.y + (y * grid.tileSize))
 endfunction position
 
-function Grid_IsPositionWithinGrid(grid ref as Grid, position as Vector2D)
+function Grid_IsWorldPositionWithinGrid(grid ref as Grid, position as Vector2D)
+	topLeft as Vector2D
+	bottomRight as Vector2D
+	
+	topLeft = Grid_GetTopLeftPosition(grid)
+	bottomRight = Grid_GetBottomRightPosition(grid)
+	
+	if(position.x < topLeft.x * grid.tileSize or position.x > bottomRight.x * grid.tileSize) then exitfunction -1
+	if(position.y < topLeft.y * grid.tileSize or position.y > bottomRight.y * grid.tileSize) then exitfunction -1
+endfunction 1
+
+function Grid_IsGridPositionWithinGrid(grid ref as Grid, position as Vector2D)
 	topLeft as Vector2D
 	bottomRight as Vector2D
 	
