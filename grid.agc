@@ -30,18 +30,15 @@ type Grid
 	tileSize as integer
 	center as Vector2D
 	rows as Row[]
-	gridData as GridData
 endtype
 
 type Row
 	tiles as Tile[]
-	rowData as RowData
 endtype
 
 type Tile
 	id as integer
 	gridPosition as Vector2D
-	tileData as TileData
 endtype
 
 /*
