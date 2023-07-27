@@ -174,7 +174,7 @@ function Grid_Debug(grid ref as Grid)
 		output = str(rowIndex) + " => "
 		
 		for colIndex = 0 to grid.rows[rowIndex].tiles.length
-			output = output + "| x:" + str(grid.rows[rowIndex].tiles[colIndex].gridPosition.x) + ", y:" + str(grid.rows[rowIndex].tiles[colIndex].gridPosition.y) + " |"
+			output = output + "|id:" + str(grid.rows[rowIndex].tiles[colIndex].id) + ",x:" + str(grid.rows[rowIndex].tiles[colIndex].gridPosition.x) + ",y:" + str(grid.rows[rowIndex].tiles[colIndex].gridPosition.y) + "|"
 		next colIndex
 		
 		Log(output)
@@ -244,24 +244,34 @@ function GridExpander_ExpandGrid(grid ref as Grid, expander ref as GridExpander)
 endfunction
 
 function GridExpander_PushFrontRow(grid ref as Grid)
+	tile as Tile
 	row as Row
+	
 	row.tiles.length = grid.rows[0].tiles.length
 	
 	for i = 0 to row.tiles.length
-		row.tiles[i].gridPosition.x = grid.rows[0].tiles[i].gridPosition.x
-		row.tiles[i].gridPosition.y = grid.rows[0].tiles[i].gridPosition.y - 1
+		x = grid.rows[0].tiles[i].gridPosition.x
+		y = grid.rows[0].tiles[i].gridPosition.y - 1
+		
+		tile = Tile_Create(Vector2D_CreateVector(x, y))
+		row.tiles[i] = tile
 	next i
 	
 	grid.rows.insert(row, 0)
 endfunction
 
 function GridExpander_PushBackRow(grid ref as Grid)
+	tile as Tile
 	row as Row
+	
 	row.tiles.length = grid.rows[grid.rows.length].tiles.length
 	
 	for i = 0 to row.tiles.length
-		row.tiles[i].gridPosition.x = grid.rows[grid.rows.length].tiles[i].gridPosition.x
-		row.tiles[i].gridPosition.y = grid.rows[grid.rows.length].tiles[grid.rows[grid.rows.length].tiles.length].gridPosition.y + 1
+		x = grid.rows[grid.rows.length].tiles[i].gridPosition.x
+		y = grid.rows[grid.rows.length].tiles[grid.rows[grid.rows.length].tiles.length].gridPosition.y + 1
+		
+		tile = Tile_Create(Vector2D_CreateVector(x, y))
+		row.tiles[i] = tile
 	next i
 	
 	grid.rows.insert(row)
@@ -271,8 +281,10 @@ function GridExpander_PushFrontColumn(grid ref as Grid)
 	tile as Tile
 	
 	for i = 0 to grid.rows.length
-		tile.gridPosition.x = grid.rows[i].tiles[0].gridPosition.x - 1
-		tile.gridPosition.y = grid.rows[i].tiles[0].gridPosition.y
+		x = grid.rows[i].tiles[0].gridPosition.x - 1
+		y = grid.rows[i].tiles[0].gridPosition.y
+		
+		tile = Tile_Create(Vector2D_CreateVector(x, y))
 		grid.rows[i].tiles.insert(tile, 0)
 	next i
 endfunction
@@ -281,8 +293,10 @@ function GridExpander_PushBackColumn(grid ref as Grid)
 	tile as Tile
 	
 	for i = 0 to grid.rows.length
-		tile.gridPosition.x = grid.rows[i].tiles[grid.rows[i].tiles.length].gridPosition.x + 1
-		tile.gridPosition.y = grid.rows[i].tiles[grid.rows[i].tiles.length].gridPosition.y
+		x = grid.rows[i].tiles[grid.rows[i].tiles.length].gridPosition.x + 1
+		y = grid.rows[i].tiles[grid.rows[i].tiles.length].gridPosition.y
+		
+		tile = Tile_Create(Vector2D_CreateVector(x, y))
 		grid.rows[i].tiles.insert(tile)
 	next i
 endfunction
