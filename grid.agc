@@ -46,14 +46,15 @@ endtype
 */
 
 type GridData
-	id as integer
+	gridId as integer
 endtype
 
 type RowData
-	id as integer
+	rowId as integer
 endtype
 
 type TileData
+	tileId as integer
 	status as integer
 	distance as integer
 endtype
@@ -112,6 +113,20 @@ function Grid_GetTilePositionFromWorldPosition(grid ref as Grid, worldPos as Vec
 		tilePos.y = ((worldPos.y) / grid.tileSize)
 	endif
 endfunction tilePos
+
+function Grid_GetTileFromWorldPosition(grid ref as Grid, worldPos as Vector2D)
+	gridPos as Vector2D
+	tile as Tile
+	
+	gridPos = Grid_GetTilePositionFromWorldPosition(grid, worldPos)
+	tile = Grid_GetTileFromGridPosition(grid, gridPos)
+	
+endfunction tile
+
+function Grid_GetTileFromGridPosition(grid ref as Grid, gridPos as Vector2D)
+	tile as Tile
+	tile = grid.rows[gridPos.y].tiles[gridPos.x]
+endfunction tile
 
 function Grid_GetTileWorldPosition(grid ref as Grid, x as integer, y as integer)
 	position as Vector2D
@@ -296,6 +311,54 @@ function GridExpander_PushBackColumn(grid ref as Grid)
 		tile = Tile_Create(Vector2D_CreateVector(x, y))
 		grid.rows[i].tiles.insert(tile)
 	next i
+endfunction
+
+/*
+
+	-- GRID DATA FUNCTIONS
+
+*/
+
+function GridData_Create(gridId as integer)
+	gridData as GridData
+	GridData_Set(gridData, gridId)
+endfunction gridData
+
+function GridData_Set(gridData ref as GridData, gridId as integer)
+	GridData.gridId = gridId
+endfunction
+
+/*
+
+	-- ROW DATA FUNCTIONS
+
+*/
+
+function RowData_Create(rowId as integer)
+	rowData as RowData
+	RowData_Set(rowData, rowId)
+endfunction rowData
+
+function RowData_Set(rowData ref as RowData, rowId as integer)
+	RowData.rowId = rowId
+endfunction
+
+
+/*
+
+	-- TILE DATA FUNCTIONS
+
+*/
+
+function TileData_Create(tileId as integer, status as integer, distance as integer)
+	tileData as TileData
+	TileData_Set(tileData, tileId, status, distance)
+endfunction tileData
+
+function TileData_Set(tileData ref as TileData, tileId as integer, status as integer, distance as integer)
+	TileData.tileId = tileId
+	TileData.status = status
+	TileData.distance = distance
 endfunction
 
 /*
