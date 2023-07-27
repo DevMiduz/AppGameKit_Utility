@@ -14,6 +14,7 @@
 #include "engine.agc"
 #include "helpers.agc"
 #include "vector.agc"
+#include "box.agc"
 #include "camera.agc"
 #include "grid.agc"
 #include "id_generator.agc"

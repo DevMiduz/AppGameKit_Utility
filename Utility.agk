@@ -51,22 +51,31 @@ output_path=
 [projectfiles]
 FILE_0=camera.agc;-1
 FILE_1=engine.agc;-1
-FILE_2=helpers.agc;-1
-FILE_3=includes.agc;-1
-FILE_4=main.agc;-1
-FILE_5=vector.agc;-1
-FILE_6=grid.agc;-1
-FILE_7=id_generator.agc;-1
+FILE_2=grid.agc;-1
+FILE_3=helpers.agc;-1
+FILE_4=id_generator.agc;-1
+FILE_5=includes.agc;-1
+FILE_6=main.agc;-1
+FILE_7=vector.agc;-1
+FILE_8=box.agc;-1
 
 [files]
-FILE_NAME_0=0;camera.agc;81;0
-FILE_NAME_1=0;helpers.agc;44;1
-FILE_NAME_2=0;includes.agc;18;2
-FILE_NAME_3=0;main.agc;10;3
-FILE_NAME_4=0;vector.agc;38;4
-FILE_NAME_5=1;grid.agc;90;5
-FILE_NAME_6=0;id_generator.agc;267;6
+FILE_NAME_0=0;camera.agc;76;0
+FILE_NAME_1=0;grid.agc;290;1
+FILE_NAME_2=0;helpers.agc;44;2
+FILE_NAME_3=0;id_generator.agc;267;3
+FILE_NAME_4=0;includes.agc;18;4
+FILE_NAME_5=0;main.agc;49;5
+FILE_NAME_6=0;vector.agc;38;6
+FILE_NAME_7=1;box.agc;0;7
 
 [watchvariables]
 watch_variable=@Version;
+watch_variable=bottomRightTile.gridPosition.x;
+watch_variable=expander.westOffset;
+watch_variable=grid.tiles.length;
+watch_variable=grid.tiles[0].length;
+watch_variable=grid.tiles[x].length;
+watch_variable=x;
+watch_variable=y;
 
