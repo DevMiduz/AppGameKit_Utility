@@ -37,7 +37,6 @@
 	
 */
 
-
 /*
 
 	FUNCTIONS
@@ -91,12 +90,11 @@ function GridPathfinding_FindTileNeighbours(grid ref as Grid, tileDataArray ref 
 	if(Grid_IsGridPositionWithinGrid(grid, tile.gridPosition) = -1) then exitfunction
 	
 	// LEFT
-	
 	if(Grid_IsGridPositionWithinGrid(grid, Vector2D_CreateVector(tile.gridPosition.x - 1, tile.gridPosition.y)) <> -1)
 		Grid_GetTileFromGridPosition(grid, neighbourTile, Vector2D_CreateVector(tile.gridPosition.x - 1, tile.gridPosition.y))
 		GridPathfinding_GetTileData(tileDataArray, neighbourTileData, neighbourTile.id)
 	
-		if(GridPathfinding_HasTileBeenVisited(neighbourTile.id, grid, visited) = -1 and GridPathfinding_IsTileImpassible(neighbourTileData) = -1)
+		if(GridPathfinding_HasTileBeenVisited(neighbourTile.id, grid, visited) = -1 and GridPathfinding_IsTileOpen(neighbourTileData) = 1)
 			neighbourTileData.distance = tileData.distance + 1
 			GridPathfinding_InsertOrUpdateTileData(tileDataArray, neighbourTileData)
 			toVisit.insert(neighbourTile)
@@ -108,7 +106,7 @@ function GridPathfinding_FindTileNeighbours(grid ref as Grid, tileDataArray ref 
 		Grid_GetTileFromGridPosition(grid, neighbourTile, Vector2D_CreateVector(tile.gridPosition.x, tile.gridPosition.y - 1))
 		GridPathfinding_GetTileData(tileDataArray, neighbourTileData, neighbourTile.id)
 	
-		if(GridPathfinding_HasTileBeenVisited(neighbourTile.id, grid, visited) = -1 and GridPathfinding_IsTileImpassible(neighbourTileData) = -1)
+		if(GridPathfinding_HasTileBeenVisited(neighbourTile.id, grid, visited) = -1 and GridPathfinding_IsTileOpen(neighbourTileData) = 1)
 			neighbourTileData.distance = tileData.distance + 1
 			GridPathfinding_InsertOrUpdateTileData(tileDataArray, neighbourTileData)
 			toVisit.insert(neighbourTile)
@@ -120,7 +118,7 @@ function GridPathfinding_FindTileNeighbours(grid ref as Grid, tileDataArray ref 
 		Grid_GetTileFromGridPosition(grid, neighbourTile, Vector2D_CreateVector(tile.gridPosition.x + 1, tile.gridPosition.y))
 		GridPathfinding_GetTileData(tileDataArray, neighbourTileData, neighbourTile.id)
 	
-		if(GridPathfinding_HasTileBeenVisited(neighbourTile.id, grid, visited) = -1 and GridPathfinding_IsTileImpassible(neighbourTileData) = -1)
+		if(GridPathfinding_HasTileBeenVisited(neighbourTile.id, grid, visited) = -1 and GridPathfinding_IsTileOpen(neighbourTileData) = 1)
 			neighbourTileData.distance = tileData.distance + 1
 			GridPathfinding_InsertOrUpdateTileData(tileDataArray, neighbourTileData)
 			toVisit.insert(neighbourTile)
@@ -132,7 +130,7 @@ function GridPathfinding_FindTileNeighbours(grid ref as Grid, tileDataArray ref 
 		Grid_GetTileFromGridPosition(grid, neighbourTile, Vector2D_CreateVector(tile.gridPosition.x, tile.gridPosition.y + 1))
 		GridPathfinding_GetTileData(tileDataArray, neighbourTileData, neighbourTile.id)
 	
-		if(GridPathfinding_HasTileBeenVisited(neighbourTile.id, grid, visited) = -1 and GridPathfinding_IsTileImpassible(neighbourTileData) = -1)
+		if(GridPathfinding_HasTileBeenVisited(neighbourTile.id, grid, visited) = -1 and GridPathfinding_IsTileOpen(neighbourTileData) = 1)
 			neighbourTileData.distance = tileData.distance + 1 
 			GridPathfinding_InsertOrUpdateTileData(tileDataArray, neighbourTileData)
 			toVisit.insert(neighbourTile)
