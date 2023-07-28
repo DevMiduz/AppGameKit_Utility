@@ -58,6 +58,7 @@ type TileData
 	sprite as integer
 	status as integer
 	distance as integer
+	distanceText as integer
 endtype
 
 type GridExpander
@@ -122,18 +123,39 @@ function Grid_GetTilePositionFromWorldPosition(grid ref as Grid, worldPos as Vec
 	endif
 endfunction tilePos
 
-function Grid_GetTileFromWorldPosition(grid ref as Grid, worldPos as Vector2D)
-	gridPos as Vector2D
-	tile as Tile
-	
-	gridPos = Grid_GetTilePositionFromWorldPosition(grid, worldPos)
-	tile = Grid_GetTileFromGridPosition(grid, gridPos)
-	
-endfunction tile
+/*
 
-//GetTileGridIndex e.g. 0 -> array length
-//GetTileGridPosition e.g. -6 -> 6
-//
+function EXG_GetTilePointFromPosition(grid ref as EXG_Grid, position as EXG_Point)
+	tilePoint as EXG_Point
+	
+	if(position.x < 0)
+		tilePoint.x = ((position.x - (grid.tileSize - 1))  / grid.tileSize)
+	else
+		tilePoint.x = ((position.x)  / grid.tileSize)
+	endif
+	
+	if(position.y < 0)
+		tilePoint.y = ((position.y - (grid.tileSize - 1)) / grid.tileSize)
+	else
+		tilePoint.y = ((position.y) / grid.tileSize)
+	endif
+endfunction tilePoint
+
+function EXG_GetTileWorldPosition(grid ref as EXG_Grid, x as integer, y as integer)
+	position as EXG_Point
+	position = EXG_CreatePoint(grid.center.x + (x * grid.tileSize), grid.center.y + (y * grid.tileSize))
+endfunction position
+
+
+*/
+
+function Grid_GetTileFromWorldPosition(grid ref as Grid, tile ref as Tile, worldPos as Vector2D)
+	gridPos as Vector2D
+	gridPos = Grid_GetTilePositionFromWorldPosition(grid, worldPos)
+	
+	if(Grid_GetTileFromGridPosition(grid, tile, gridPos) = -1) then exitfunction -1
+	
+endfunction 1
 
 function Grid_GetTileFromGridIndex(grid ref as Grid, gridPos as Vector2D)
 	tile as Tile
@@ -142,7 +164,7 @@ function Grid_GetTileFromGridIndex(grid ref as Grid, gridPos as Vector2D)
 	tile = grid.rows[y].tiles[x]
 endfunction tile
 
-function Grid_GetTileFromGridPosition(grid ref as Grid, gridPos as Vector2D)
+function Grid_GetTileFromGridPosition(grid ref as Grid, tile ref as Tile, gridPos as Vector2D)
 	/*
 	
 	TODO:
@@ -161,11 +183,14 @@ function Grid_GetTileFromGridPosition(grid ref as Grid, gridPos as Vector2D)
 	x = abs(topLeft.x) + gridPos.x
 	y = abs(topLeft.y) + gridPos.y
 	
+	//here is where an error is thrown due to the fact that 22 is out of bounds.
+	//We could do with changing this functons to use a reference and then return a bool to say that it is not possible.
+	if(y < 0 or y > grid.rows.length) then exitfunction -1
+	if(x < 0 or x > grid.rows[y].tiles.length) then exitfunction -1
 	
-	tile as Tile
-
 	tile = grid.rows[y].tiles[x]
-endfunction tile
+	
+endfunction 1
 
 function Grid_GetTileWorldPosition(grid ref as Grid, x as integer, y as integer)
 	position as Vector2D
