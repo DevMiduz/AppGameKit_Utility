@@ -18,6 +18,7 @@
 */
 
 #include "grid.agc"
+#include "camera.agc"
 
 /*
 
@@ -262,7 +263,7 @@ function GridPathfinding_DrawGrid(grid ref as Grid, tileDataArray ref as TileDat
 			
 			
 			position = Grid_GetTileWorldPosition(grid, tile.gridPosition.x, tile.gridPosition.y)
-			DrawBox(position.x, position.y, position.x + grid.tileSize, position.y + grid.tileSize, color, color, color, color, 0)
+			DrawBox(WorldToScreenX(position.x), WorldToScreenY(position.y), WorldToScreenX(position.x + grid.tileSize), WorldToScreenY(position.y + grid.tileSize), color, color, color, color, 0)
 			
 			if(GetTextExists(tileData.distanceText) = 0)
 				tileData.distanceText = CreateText(str(tileData.distance))
@@ -293,6 +294,8 @@ endfunction
 
 global blocksImage as integer
 blocksImage = LoadImage("pathfinding_blocks.png")
+global camera as Camera
+camera = Camera_Create(0, 0, 1)
 
 function GridPathfinding_TestUtility()	
 	
@@ -307,6 +310,22 @@ function GridPathfinding_TestUtility()
 	    Print( ScreenFPS() )
 	    
 	    GridPathfinding_DrawGrid(grid, tileDataArray)
+	    
+	    	if(GetRawKeyState(37) = 1)
+	    		Camera_Move(camera, -1, 0)
+	    endif
+	    
+	    if(GetRawKeyState(38) = 1)
+	    		Camera_Move(camera, 0, -1)
+	    endif
+	    
+	    if(GetRawKeyState(39) = 1)
+	    		Camera_Move(camera, 1, 0)
+	    endif
+	    
+	    if(GetRawKeyState(40) = 1)
+	    		Camera_Move(camera, 0, 1)
+	    endif
 	    
 	    if(GetRawKeyPressed(32))
 	    		inc gridExpander.eastOffset
@@ -327,7 +346,7 @@ function GridPathfinding_TestUtility()
 			GridPathfinding_ResetTileDataDistances(tileDataArray)
 			
 			tile as Tile
-			if(Grid_GetTileFromWorldPosition(grid, tile, Vector2D_CreateVector(GetPointerX(), GetPointerY())) <> -1)
+			if(Grid_GetTileFromWorldPosition(grid, tile, Vector2D_CreateVector(ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))) <> -1)
 				GridPathfinding_UpdatePathDistances(grid, tileDataArray, tile)
 				GridPathfinding_DebugTileData(tileDataArray)
 			endif
