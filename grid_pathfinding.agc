@@ -277,12 +277,12 @@ endfunction
 
 function GridPathfinding_InitGrid(grid ref as Grid, GridExpander ref as GridExpander, tileDataArray ref as TileData[])
 	
-	grid = Grid_Create(8, Vector2D_CreateVector(0, 0))
+	grid = Grid_Create(8, Vector2D_CreateVector(-8, -8))
 	
-	gridExpander.eastOffset = 10
-	gridExpander.westOffset = 10
+	gridExpander.eastOffset = 8
+	gridExpander.westOffset = 0
 	gridExpander.northOffset = 0
-	gridExpander.southOffset = 11
+	gridExpander.southOffset = 8
 	
 	GridExpander_ExpandGrid(grid, gridExpander)
 	GridPathfinding_InitTileData(grid, tileDataArray)

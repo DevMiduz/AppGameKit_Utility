@@ -28,7 +28,6 @@
 type Grid
 	id as integer
 	tileSize as integer
-	center as Vector2D
 	rows as Row[]
 endtype
 
@@ -87,7 +86,6 @@ endfunction grid
 function Grid_CreateRef(grid ref as Grid, tileSize as integer, center as Vector2D)
 	grid.id = IDGenerator_GenerateNewID(GLOBAL_ID_GENERATOR)
 	grid.tileSize = tileSize
-	grid.center = center
 	grid.rows.insert(Row_Create())
 	grid.rows[0].tiles.insert(Tile_Create(Vector2D_CreateVector(0,0)))
 endfunction
@@ -110,44 +108,33 @@ function Grid_GetTilePositionFromWorldPosition(grid ref as Grid, worldPos as Vec
 	
 	*/
 	
+	/*
 	if(worldPos.x < 0)
-		tilePos.x = ((worldPos.x - (grid.tileSize - 1))  / grid.tileSize)
+		tilePos.x = (((grid.center.x + worldPos.x) - (grid.tileSize - 1))  / grid.tileSize)
+	else
+		tilePos.x = ((grid.center.x + worldPos.x)  / grid.tileSize)
+	endif
+	
+	if(worldPos.y < 0)
+		tilePos.y = (((grid.center.y + worldPos.y) - (grid.tileSize - 1)) / grid.tileSize)
+	else
+		tilePos.y = ((grid.center.y + worldPos.y) / grid.tileSize)
+	endif
+	*/
+	
+	if(worldPos.x < 0)
+		tilePos.x = (((worldPos.x) - (grid.tileSize - 1))  / grid.tileSize)
 	else
 		tilePos.x = ((worldPos.x)  / grid.tileSize)
 	endif
 	
 	if(worldPos.y < 0)
-		tilePos.y = ((worldPos.y - (grid.tileSize - 1)) / grid.tileSize)
+		tilePos.y = (((worldPos.y) - (grid.tileSize - 1)) / grid.tileSize)
 	else
 		tilePos.y = ((worldPos.y) / grid.tileSize)
 	endif
+	
 endfunction tilePos
-
-/*
-
-function EXG_GetTilePointFromPosition(grid ref as EXG_Grid, position as EXG_Point)
-	tilePoint as EXG_Point
-	
-	if(position.x < 0)
-		tilePoint.x = ((position.x - (grid.tileSize - 1))  / grid.tileSize)
-	else
-		tilePoint.x = ((position.x)  / grid.tileSize)
-	endif
-	
-	if(position.y < 0)
-		tilePoint.y = ((position.y - (grid.tileSize - 1)) / grid.tileSize)
-	else
-		tilePoint.y = ((position.y) / grid.tileSize)
-	endif
-endfunction tilePoint
-
-function EXG_GetTileWorldPosition(grid ref as EXG_Grid, x as integer, y as integer)
-	position as EXG_Point
-	position = EXG_CreatePoint(grid.center.x + (x * grid.tileSize), grid.center.y + (y * grid.tileSize))
-endfunction position
-
-
-*/
 
 function Grid_GetTileFromWorldPosition(grid ref as Grid, tile ref as Tile, worldPos as Vector2D)
 	gridPos as Vector2D
@@ -183,8 +170,6 @@ function Grid_GetTileFromGridPosition(grid ref as Grid, tile ref as Tile, gridPo
 	x = abs(topLeft.x) + gridPos.x
 	y = abs(topLeft.y) + gridPos.y
 	
-	//here is where an error is thrown due to the fact that 22 is out of bounds.
-	//We could do with changing this functons to use a reference and then return a bool to say that it is not possible.
 	if(y < 0 or y > grid.rows.length) then exitfunction -1
 	if(x < 0 or x > grid.rows[y].tiles.length) then exitfunction -1
 	
@@ -194,7 +179,7 @@ endfunction 1
 
 function Grid_GetTileWorldPosition(grid ref as Grid, x as integer, y as integer)
 	position as Vector2D
-	position = Vector2D_CreateVector(grid.center.x + (x * grid.tileSize), grid.center.y + (y * grid.tileSize))
+	position = Vector2D_CreateVector((x * grid.tileSize), (y * grid.tileSize))
 endfunction position
 
 function Grid_IsWorldPositionWithinGrid(grid ref as Grid, position as Vector2D)
@@ -221,7 +206,7 @@ endfunction 1
 
 function Grid_GetTileCenterByIndex(grid ref as Grid, x as integer, y as integer)
 	position as Vector2D
-	position = Vector2D_CreateVector(grid.center.x + (x * grid.tileSize) + (grid.tileSize / 2), grid.center.y + (y * grid.tileSize) + (grid.tileSize / 2) )
+	position = Vector2D_CreateVector((x * grid.tileSize) + (grid.tileSize / 2), (y * grid.tileSize) + (grid.tileSize / 2) )
 endfunction position
 
 function Grid_GetTileIndexesInBox(grid ref as Grid, box as Box)
