@@ -278,15 +278,7 @@ function GridPathfinding_DrawGrid(grid ref as Grid, tileDataArray ref as TileDat
 	next rowIndex
 endfunction
 
-function GridPathfinding_InitGrid(grid ref as Grid, GridExpander ref as GridExpander, tileDataArray ref as TileData[])
-	
-	grid = Grid_Create(8, Vector2D_CreateVector(-8, -8))
-	
-	gridExpander.eastOffset = 8
-	gridExpander.westOffset = 0
-	gridExpander.northOffset = 0
-	gridExpander.southOffset = 8
-	
+function GridPathfinding_InitGrid(grid ref as Grid, GridExpander ref as GridExpander, tileDataArray ref as TileData[])	
 	GridExpander_ExpandGrid(grid, gridExpander)
 	GridPathfinding_InitTileData(grid, tileDataArray)
 	GridPathfinding_DebugTileData(tileDataArray)
@@ -299,7 +291,12 @@ global camera as Camera
 camera = Camera_Create(0, 0, 1)
 
 function GridPathfinding_TestUtility()	
+	grid = Grid_Create(8, Vector2D_CreateVector(-8, -8))
 	
+	gridExpander.eastOffset = 8
+	gridExpander.westOffset = 0
+	gridExpander.northOffset = 0
+	gridExpander.southOffset = 8
 	
 	grid as Grid
 	gridExpander as GridExpander
