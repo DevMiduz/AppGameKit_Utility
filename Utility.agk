@@ -62,22 +62,20 @@ FILE_9=grid_pathfinding.agc;-1
 
 [files]
 FILE_NAME_0=0;camera.agc;76;0
-FILE_NAME_1=0;grid.agc;59;1
-FILE_NAME_2=0;helpers.agc;44;2
-FILE_NAME_3=0;id_generator.agc;267;3
-FILE_NAME_4=0;includes.agc;16;4
-FILE_NAME_5=0;main.agc;49;5
-FILE_NAME_6=0;vector.agc;23;6
-FILE_NAME_7=0;box.agc;37;7
-FILE_NAME_8=1;grid_pathfinding.agc;0;8
+FILE_NAME_1=0;engine.agc;26;1
+FILE_NAME_2=0;grid.agc;153;2
+FILE_NAME_3=0;helpers.agc;44;3
+FILE_NAME_4=0;id_generator.agc;267;4
+FILE_NAME_5=0;includes.agc;20;5
+FILE_NAME_6=0;main.agc;50;6
+FILE_NAME_7=0;vector.agc;34;7
+FILE_NAME_8=0;box.agc;15;8
+FILE_NAME_9=1;grid_pathfinding.agc;98;9
 
 [watchvariables]
 watch_variable=@Version;
-watch_variable=bottomRightTile.gridPosition.x;
-watch_variable=expander.westOffset;
-watch_variable=grid.tiles.length;
-watch_variable=grid.tiles[0].length;
-watch_variable=grid.tiles[x].length;
-watch_variable=x;
-watch_variable=y;
+watch_variable=grid.rows.length;
+watch_variable=grid.rows[rowIndex].tiles.length;
+watch_variable=tile;
+watch_variable=tilePos.y;
 

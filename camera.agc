@@ -71,6 +71,7 @@ endfunction
 	TEST_FUNCTIONS
 	
 */
+
 function Test_Camera_Utility()
 	blocksImage = LoadImage("blocks.png")
 	blocksSprite = CreateSprite(blocksImage)

@@ -55,6 +55,7 @@ endtype
 
 type TileData
 	tileId as integer
+	sprite as integer
 	status as integer
 	distance as integer
 endtype
@@ -101,6 +102,13 @@ endfunction grid.rows[grid.rows.length].tiles[grid.rows[grid.rows.length].tiles.
 function Grid_GetTilePositionFromWorldPosition(grid ref as Grid, worldPos as Vector2D)
 	tilePos as Vector2D
 	
+	/*
+	
+	TODO:
+	NEEDS TO TAKE INTO CONSIDERATION THE GRID CENTER AND THE TOPLEFTTILE'S POSITION
+	
+	*/
+	
 	if(worldPos.x < 0)
 		tilePos.x = ((worldPos.x - (grid.tileSize - 1))  / grid.tileSize)
 	else
@@ -123,9 +131,40 @@ function Grid_GetTileFromWorldPosition(grid ref as Grid, worldPos as Vector2D)
 	
 endfunction tile
 
-function Grid_GetTileFromGridPosition(grid ref as Grid, gridPos as Vector2D)
+//GetTileGridIndex e.g. 0 -> array length
+//GetTileGridPosition e.g. -6 -> 6
+//
+
+function Grid_GetTileFromGridIndex(grid ref as Grid, gridPos as Vector2D)
 	tile as Tile
-	tile = grid.rows[gridPos.y].tiles[gridPos.x]
+	x = gridPos.x
+	y = gridPos.y
+	tile = grid.rows[y].tiles[x]
+endfunction tile
+
+function Grid_GetTileFromGridPosition(grid ref as Grid, gridPos as Vector2D)
+	/*
+	
+	TODO:
+	NEEDS TO TAKE INTO CONSIDERATION THE GRID CENTER AND THE TOPLEFTTILE'S POSITION
+	-positions are throwing the indexes out and it should be from 0
+	*/
+	
+	
+	topLeft as Vector2D
+	bottomRight as Vector2D
+	
+	topLeft = Grid_GetTopLeftPosition(grid)
+	bottomRight = Grid_GetBottomRightPosition(grid)
+	
+	
+	x = abs(topLeft.x) + gridPos.x
+	y = abs(topLeft.y) + gridPos.y
+	
+	
+	tile as Tile
+
+	tile = grid.rows[y].tiles[x]
 endfunction tile
 
 function Grid_GetTileWorldPosition(grid ref as Grid, x as integer, y as integer)
@@ -151,8 +190,8 @@ function Grid_IsGridPositionWithinGrid(grid ref as Grid, position as Vector2D)
 	topLeft = Grid_GetTopLeftPosition(grid)
 	bottomRight = Grid_GetBottomRightPosition(grid)
 	
-	if(position.x < topLeft.x or position.x > bottomRight.x + grid.tileSize) then exitfunction -1
-	if(position.y < topLeft.y or position.y > bottomRight.y + grid.tileSize) then exitfunction -1
+	if(position.x < topLeft.x or position.x > bottomRight.x) then exitfunction -1
+	if(position.y < topLeft.y or position.y > bottomRight.y) then exitfunction -1
 endfunction 1
 
 function Grid_GetTileCenterByIndex(grid ref as Grid, x as integer, y as integer)

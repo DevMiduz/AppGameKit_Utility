@@ -85,58 +85,62 @@ function GridPathfinding_UpdatePathDistances(grid ref as Grid, tileDataArray ref
 endfunction
 
 function GridPathfinding_FindTileNeighbours(grid ref as Grid, tileDataArray ref as TileData[], tile ref as Tile, toVisit ref as Tile[], visited ref as integer[])
+	tileData as TileData
 	neighbourTile as Tile
 	neighbourTileData as TileData
 	
 	if(Grid_IsGridPositionWithinGrid(grid, tile.gridPosition) = -1) then exitfunction
 	
-	// LEFT
-	neighbourTile = Grid_GetTileFromGridPosition(grid, Vector2D_CreateVector(tile.gridPosition.x - 1, tile.gridPosition.y))
-	GridPathfinding_GetTileData(tileDataArray, neighbourTileData, neighbourTile.id)
+	GridPathfinding_GetTileData(tileDataArray, tileData, tile.id)
 	
-	if(Grid_IsGridPositionWithinGrid(grid, neighbourTile.gridPosition) <> -1)
+	// LEFT
+	
+	if(Grid_IsGridPositionWithinGrid(grid, Vector2D_CreateVector(tile.gridPosition.x - 1, tile.gridPosition.y)) <> -1)
+		neighbourTile = Grid_GetTileFromGridPosition(grid, Vector2D_CreateVector(tile.gridPosition.x - 1, tile.gridPosition.y))
+		GridPathfinding_GetTileData(tileDataArray, neighbourTileData, neighbourTile.id)
+	
 		if(GridPathfinding_HasTileBeenVisited(neighbourTile.id, grid, visited) = -1 and GridPathfinding_IsTileImpassible(neighbourTileData) = -1)
 			//update distance in grid data
-			inc neighbourTileData.distance 
+			neighbourTileData.distance = tileData.distance + 1
 			GridPathfinding_InsertOrUpdateTileData(tileDataArray, neighbourTileData)
 			toVisit.insert(neighbourTile)
 		endif
 	endif
 	
 	// UP
-	neighbourTile = Grid_GetTileFromGridPosition(grid, Vector2D_CreateVector(tile.gridPosition.x, tile.gridPosition.y - 1))
-	GridPathfinding_GetTileData(tileDataArray, neighbourTileData, neighbourTile.id)
+	if(Grid_IsGridPositionWithinGrid(grid, Vector2D_CreateVector(tile.gridPosition.x, tile.gridPosition.y - 1)) <> -1)
+		neighbourTile = Grid_GetTileFromGridPosition(grid, Vector2D_CreateVector(tile.gridPosition.x, tile.gridPosition.y - 1))
+		GridPathfinding_GetTileData(tileDataArray, neighbourTileData, neighbourTile.id)
 	
-	if(Grid_IsGridPositionWithinGrid(grid, neighbourTile.gridPosition) <> -1)
 		if(GridPathfinding_HasTileBeenVisited(neighbourTile.id, grid, visited) = -1 and GridPathfinding_IsTileImpassible(neighbourTileData) = -1)
 			//update distance in grid data
-			inc neighbourTileData.distance 
+			neighbourTileData.distance = tileData.distance + 1
 			GridPathfinding_InsertOrUpdateTileData(tileDataArray, neighbourTileData)
 			toVisit.insert(neighbourTile)
 		endif
 	endif
 	
 	// RIGHT
-	neighbourTile = Grid_GetTileFromGridPosition(grid, Vector2D_CreateVector(tile.gridPosition.x + 1, tile.gridPosition.y))
-	GridPathfinding_GetTileData(tileDataArray, neighbourTileData, neighbourTile.id)
+	if(Grid_IsGridPositionWithinGrid(grid, Vector2D_CreateVector(tile.gridPosition.x + 1, tile.gridPosition.y)) <> -1)
+		neighbourTile = Grid_GetTileFromGridPosition(grid, Vector2D_CreateVector(tile.gridPosition.x + 1, tile.gridPosition.y))
+		GridPathfinding_GetTileData(tileDataArray, neighbourTileData, neighbourTile.id)
 	
-	if(Grid_IsGridPositionWithinGrid(grid, neighbourTile.gridPosition) <> -1)
 		if(GridPathfinding_HasTileBeenVisited(neighbourTile.id, grid, visited) = -1 and GridPathfinding_IsTileImpassible(neighbourTileData) = -1)
 			//update distance in grid data
-			inc neighbourTileData.distance 
+			neighbourTileData.distance = tileData.distance + 1
 			GridPathfinding_InsertOrUpdateTileData(tileDataArray, neighbourTileData)
 			toVisit.insert(neighbourTile)
 		endif
 	endif
 
 	// DOWN
-	neighbourTile = Grid_GetTileFromGridPosition(grid, Vector2D_CreateVector(tile.gridPosition.x, tile.gridPosition.y + 1))
-	GridPathfinding_GetTileData(tileDataArray, neighbourTileData, neighbourTile.id)
+	if(Grid_IsGridPositionWithinGrid(grid, Vector2D_CreateVector(tile.gridPosition.x, tile.gridPosition.y + 1)) <> -1)
+		neighbourTile = Grid_GetTileFromGridPosition(grid, Vector2D_CreateVector(tile.gridPosition.x, tile.gridPosition.y + 1))
+		GridPathfinding_GetTileData(tileDataArray, neighbourTileData, neighbourTile.id)
 	
-	if(Grid_IsGridPositionWithinGrid(grid, neighbourTile.gridPosition) <> -1)
 		if(GridPathfinding_HasTileBeenVisited(neighbourTile.id, grid, visited) = -1 and GridPathfinding_IsTileImpassible(neighbourTileData) = -1)
 			//update distance in grid data
-			inc neighbourTileData.distance 
+			neighbourTileData.distance = tileData.distance + 1 
 			GridPathfinding_InsertOrUpdateTileData(tileDataArray, neighbourTileData)
 			toVisit.insert(neighbourTile)
 		endif
@@ -241,45 +245,54 @@ endfunction
 	
 */
 
-/*
-function GridPathfinding_InitGrid(grid ref as Grid)
-	id as integer
+function GridPathfinding_RandomiseTileData(tileDataArray ref as TileData[])
+	for i = 0 to tileDataArray.length
+		tileDataArray[i].status = Random(0, 2)
+	next i
+endfunction
+
+function GridPathfinding_DrawGrid(grid ref as Grid, tileDataArray ref as TileData[])
+	tile as Tile
+	tileData as TileData
+	position as Vector2D
 	
-	grid.tiles.length = grid.width
-	
-	for gx = 0 to grid.width
-		grid.tiles[gx].length = grid.height
-		for gy = 0 to grid.height
-			tile as Tile
+	for rowIndex = 0 to grid.rows.length
+		for colIndex = 0 to grid.rows[rowIndex].tiles.length
+			tile = Grid_GetTileFromGridIndex(grid, Vector2D_CreateVector(colIndex, rowIndex))
+			GridPathfinding_GetTileData(tileDataArray, tileData, tile.id)
 			
-			tile.id = id
-			tile.gx = gx
-			tile.gy = gy
-			tile.px = gx * grid.tileSize
-			tile.py = gy * grid.tileSize
-			tile.status = TILE_OPEN
-			tile.distance = -1
-			
-			tile.sprite = CreateSprite(blocksImage)
-			SetSpritePosition(tile.sprite, tile.px, tile.py)
-			SetSpriteAnimation(tile.sprite, 8, 8, 4)
-			PlaySprite(tile.sprite, 0)
-			
-			tile.distanceText = CreateText(str(tile.distance))
-			SetTextPosition(tile.distanceText, tile.px, tile.py)
-			
-			if(Random(0, 8) = 0) 
-				tile.status = TILE_IMPASSIBLE
-				PlaySprite(tile.sprite, 0, 0, 4, 4)
+			if(tileData.status = TILE_OPEN)
+				color = MakeColor( 255, 255, 255 )
+			elseif(tileData.status = TILE_CLOSED)
+				color = MakeColor( 0, 0, 255 )
+			elseif(tileData.status = TILE_IMPASSIBLE)
+				color = MakeColor( 255, 0, 0 )
 			endif
 			
-			grid.tiles[gx, gy] = tile
-			inc id
-		next gy
-	next gx
+			
+			position = Grid_GetTileWorldPosition(grid, tile.gridPosition.x, tile.gridPosition.y)
+			DrawBox(position.x, position.y, position.x + grid.tileSize, position.y + grid.tileSize, color, color, color, color, 0)
+		next colIndex
+	next rowIndex
+endfunction
+
+function GridPathfinding_InitGrid(grid ref as Grid, GridExpander ref as GridExpander, tileDataArray ref as TileData[])
+	
+	grid = Grid_Create(8, Vector2D_CreateVector(0, 0))
+	
+	gridExpander.eastOffset = 10
+	gridExpander.westOffset = 10
+	gridExpander.northOffset = 0
+	gridExpander.southOffset = 11
+	
+	GridExpander_ExpandGrid(grid, gridExpander)
+	GridPathfinding_InitTileData(grid, tileDataArray)
+	GridPathfinding_DebugTileData(tileDataArray)
 	
 endfunction
-*/
+
+global blocksImage as integer
+blocksImage = LoadImage("pathfinding_blocks.png")
 
 function GridPathfinding_TestUtility()	
 	
@@ -288,10 +301,12 @@ function GridPathfinding_TestUtility()
 	gridExpander as GridExpander
 	tileDataArray as TileData[]
 	
-	grid = Grid_Create(8, Vector2D_CreateVector(0, 0))
+	GridPathfinding_InitGrid(grid, GridExpander, tileDataArray)
 	
 	do
 	    Print( ScreenFPS() )
+	    
+	    GridPathfinding_DrawGrid(grid, tileDataArray)
 	    
 	    if(GetRawKeyPressed(32))
 	    		inc gridExpander.eastOffset
@@ -302,19 +317,18 @@ function GridPathfinding_TestUtility()
 	    		GridPathfinding_InitTileData(grid, tileDataArray)
 	    		GridPathfinding_DebugTileData(tileDataArray)
 	    endif
+	     
+	    if(GetRawKeyPressed(13))
+	    		GridPathfinding_RandomiseTileData(tileDataArray)
+	   	endif
 	    
-	    /*
+	    
 	    if(GetPointerPressed())
-		    		tileX as integer
-		    		tileY as integer
-		    		
-		    		tileX = GetPointerX() / gGrid.tileSize
-		    		tileY = GetPointerY() / gGrid.tileSize
-		    
-				resetDistances(gGrid)
-				pathfindingLoop(gGrid.tiles[tileX, tileY], gGrid)
+			GridPathfinding_ResetTileDataDistances(tileDataArray)
+			GridPathfinding_UpdatePathDistances(grid, tileDataArray, Grid_GetTileFromWorldPosition(grid, Vector2D_CreateVector(GetPointerX(), GetPointerY())))
+			GridPathfinding_DebugTileData(tileDataArray)
     		endif
-    		*/
+    		
 	    
 	    Sync()
 	loop
