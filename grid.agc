@@ -101,27 +101,6 @@ endfunction grid.rows[grid.rows.length].tiles[grid.rows[grid.rows.length].tiles.
 function Grid_GetTilePositionFromWorldPosition(grid ref as Grid, worldPos as Vector2D)
 	tilePos as Vector2D
 	
-	/*
-	
-	TODO:
-	NEEDS TO TAKE INTO CONSIDERATION THE GRID CENTER AND THE TOPLEFTTILE'S POSITION
-	
-	*/
-	
-	/*
-	if(worldPos.x < 0)
-		tilePos.x = (((grid.center.x + worldPos.x) - (grid.tileSize - 1))  / grid.tileSize)
-	else
-		tilePos.x = ((grid.center.x + worldPos.x)  / grid.tileSize)
-	endif
-	
-	if(worldPos.y < 0)
-		tilePos.y = (((grid.center.y + worldPos.y) - (grid.tileSize - 1)) / grid.tileSize)
-	else
-		tilePos.y = ((grid.center.y + worldPos.y) / grid.tileSize)
-	endif
-	*/
-	
 	if(worldPos.x < 0)
 		tilePos.x = (((worldPos.x) - (grid.tileSize - 1))  / grid.tileSize)
 	else
@@ -152,14 +131,6 @@ function Grid_GetTileFromGridIndex(grid ref as Grid, gridPos as Vector2D)
 endfunction tile
 
 function Grid_GetTileFromGridPosition(grid ref as Grid, tile ref as Tile, gridPos as Vector2D)
-	/*
-	
-	TODO:
-	NEEDS TO TAKE INTO CONSIDERATION THE GRID CENTER AND THE TOPLEFTTILE'S POSITION
-	-positions are throwing the indexes out and it should be from 0
-	*/
-	
-	
 	topLeft as Vector2D
 	bottomRight as Vector2D
 	
