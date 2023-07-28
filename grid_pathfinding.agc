@@ -61,6 +61,9 @@ function GridPathfinding_UpdatePathDistances(grid ref as Grid, tileDataArray ref
 	currentTileData as TileData
 	
 	GridPathfinding_GetTileData(tileDataArray, currentTileData, startTile.id)
+	
+	if(currentTileData.status <> TILE_OPEN) then exitfunction
+	
 	currentTileData.distance = 0
 	GridPathfinding_InsertOrUpdateTileData(tileDataArray, currentTileData)
 	
