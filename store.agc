@@ -18,7 +18,7 @@
 */
 
 type Store
-	example as ExampleStore
+	example as Example
 endtype
 
 type Example
@@ -33,6 +33,6 @@ endtype
 
 global store as Store
 
-function ExampleStore_Changed(example ref as ExampleStore, changed as integer)
+function Store_Example_Changed(example ref as Example, changed as integer)
 	example.changed = changed
 endfunction

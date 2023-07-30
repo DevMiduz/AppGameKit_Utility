@@ -13,6 +13,7 @@
 
 #include "engine.agc"
 #include "helpers.agc"
+#include "store.agc"
 #include "vector.agc"
 #include "box.agc"
 #include "camera.agc"
